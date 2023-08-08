@@ -18,4 +18,19 @@ class DogsController < ApplicationController
       render json: {message: "User must be logged in to create a new dog"}
     end
   end
+
+  def update
+    if current_user
+      @dogs = current_user.dogs
+      @dog = @dogs.find_by(id: params[:id])
+      @dog.update(
+        name: params[:name] || @dog.name,
+        age: params[:age] || @dog.age,
+        breed: params[:breed] || @dog.breed
+      )
+      render :show
+    else
+      render json: {message: "You must be the owner to update this dog"}
+    end
+  end
 end

@@ -9,7 +9,8 @@ class DogsController < ApplicationController
       @dog = Dog.new(
         name: params[:name],
         age: params[:age],
-        breed: params[:breed]
+        breed: params[:breed],
+        user_id: current_user.id
       )
       @dog.save
       render :show
